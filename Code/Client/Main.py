@@ -46,6 +46,7 @@ class mywindow(QMainWindow, Ui_Client):
         file.close()
         self.h = self.IP.text()
         self.TCP = VideoStreaming()
+        self.video_connected = False
         self.servo1 = 90
         self.servo2 = 90
         self.label_FineServo2.setText("0")
