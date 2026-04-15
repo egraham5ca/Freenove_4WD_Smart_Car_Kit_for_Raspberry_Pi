@@ -10,16 +10,24 @@ from PIL import Image
 from multiprocessing import Process
 from Command import COMMAND as cmd
 
+
 class VideoStreaming:
     def __init__(self):
-        self.face_cascade = cv2.CascadeClassifier(r'haarcascade_frontalface_default.xml')
-        self.video_Flag=True
-        self.connect_Flag=False
-        self.face_x=0
-        self.face_y=0
-    def StartTcpClient(self,IP):
-        self.client_socket1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        ...
+        self.connection = None
+        self.connect_Flag = False
+
+    def StartTcpClient(self, IP, port=8000):
+        try:
+            self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.connection.connect((IP, port))
+            self.connect_Flag = True
+            print("[VIDEO] Connected")
+        except Exception as e:
+            print("[VIDEO] Connection failed:", e)
+            self.connection = None
+            self.connect_Flag = False
+
     def StopTcpcClient(self):
         try:
             self.client_socket.shutdown(2)
